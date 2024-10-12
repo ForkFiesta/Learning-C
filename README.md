@@ -80,3 +80,67 @@ C provides several other data types:
 | double | double-precision floating point|
 
 `printf` is not part of the C language; there is no input our output defined in C itself. IT is a useful function from standard library of functions in `stdio.h`
+
+### Second Iteration of Temperature Calculator
+
+[Calculator-v2](programs/fahrenheit-celsius/temp-conversionV2.c)
+
+```
+#include <stdio.h>
+
+int main()
+{
+    float fahr, celsius;
+    float lower, upper, step;
+
+    lower = 0;
+    upper = 300;
+    step = 20;
+
+    fahr = lower;
+
+    while (fahr <= upper) {
+        celsius = (5.0/9.0) * (fahr-32.0);
+        printf("%3.0f %6.1f\n", fahr,celsius);
+        fahr = fahr + step;
+    }
+}
+```
+
+in this case we were able to do `5/9` because we declared the working variables as floats and the division of 5 by 9 as floats in the calculation. ie. 5.0 & 9.0.
+
+> if an arithmetic operator has integer operands, an integer operation is performed. If an arithmetic operator has one floating point operand and ont integer operand, the integer will be converted to floating point before the operation is done.
+
+> Width and precision may be omitted from a speicification: `%6f` says that the number is to be at least six character wide; `%.2f` specifies two characters after the decimal point, but the width is not constrained; and `%f` says the print the number as floating point
+
+|         |                                                              |
+| ------- | ------------------------------------------------------------ |
+| `%d`    | print as decimal integer                                     |
+| `%6d`   | print as decimal integer, at least 6 characters wide         |
+| `%f`    | print as floating point                                      |
+| `%6f`   | print as floating at least 6 characters wide                 |
+| `%.2f`  | print as floating point, 2 characters after decimal point    |
+| `%6.2f` | print as floating point, at 6 wide and 2 after decimal point |
+
+Also use `%o` for octal, `%x` for hexadeciaml, `%c` for character, `%s` for character string and `%%` for itself
+
+[Exericse 1-3. Exercise 1-3. Modify the temperature conversion program to print a heading above the table.](programs/calculator-exc-1-3.c)
+
+[Exercise 1-4. Write a program to print the corresponding Celsius to Fahrenheit table.]
+
+## 1.2 The for statement.
+
+[calucaltor in for loop](programs/fahrenheit-celsius/temp-conversion-for.c)
+
+```
+#include <stdio.h>
+
+int main()
+{
+    int fahr;
+
+    for (fahr=0; fahr <= 300; fahr = fahr + 20)
+        printf("%3d %6.1f\n", fahr, (5.0/9.0) * (fahr-32));
+
+}
+```
