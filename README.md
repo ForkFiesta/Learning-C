@@ -2,13 +2,23 @@
 
 This is a repository containing notes on C syntax, and projects completed using C during the reading of C Programming Language by Brian Kernigan and Dennis Ritchie. Also a great excuse for me to practice my markdown syntax.
 
-### Extensions used in VS Code to run C
+#### Extensions used in VS Code to run C
 
 - C/C++ by Microsoft
 - C/C++ Extension Packy by Microsoft
-- Code Runner by Jun Han
+- ~Code Runner by Jun Han~
 
-## Let's Begin
+#### Helpful commands to know for compiling
+
+When in directory c program is located, compile the code using the following command:
+
+- `gcc filename.c -o filename` to compile.
+- `./filename` to run executable
+- `ctrl + C` to exit program
+
+## Chapter 1
+
+### Chapter 1.1
 
 Our first program: hello.c
 
@@ -126,9 +136,9 @@ Also use `%o` for octal, `%x` for hexadeciaml, `%c` for character, `%s` for char
 
 [Exericse 1-3. Exercise 1-3. Modify the temperature conversion program to print a heading above the table.](programs/calculator-exc-1-3.c)
 
-[Exercise 1-4. Write a program to print the corresponding Celsius to Fahrenheit table.]
+[Exercise 1-4. Write a program to print the corresponding Celsius to Fahrenheit table.](programs/fahrenheit-celsius/temp-calcular-F-C.c)
 
-## 1.2 The for statement.
+### 1.2 The for statement.
 
 [calucaltor in for loop](programs/fahrenheit-celsius/temp-conversion-for.c)
 
@@ -144,3 +154,58 @@ int main()
 
 }
 ```
+
+#### Symbolic constants
+
+Use `#define` folowed by the name of the symbol then the value. They are are not followed by a semicolon and they are conventionally written in uppercase. See below:
+
+`#define LOWER 0 /* Lower Limit of Table */`
+
+## 1.5 Character Input and Output
+
+a _text stream_ is a sequence of characters divided into lines; each line consists of zero or more character followed by a newline character.
+
+> The standard library provides several functions for reading or writing one character at a time, of which `getchar` and `putchar` are the simplest. Each time it is called, `getchar` reads the _next input character_.
+
+In: `c=getchar();` the variable c contains the next character of input. and the function `putchar()` prints a character each it is called. It prints the contents of the integer cariable c as a character.
+
+### 1.5.1 File Copying
+
+to copy input to output, see the following code block below:
+
+```
+#include <stdio.h>
+
+int main()
+{
+    int c;
+
+    c = getchar(); // get first character from input
+    while (c != EOF){ //start loop
+        putchar(c); //print character
+        c = getchar(); // get character
+    }
+}
+```
+
+The type char is specifically meant for storing character data (an integer). So why not use an integer?
+`getchar` returns a distinctive value when there is no more input, a value that cannot be confused with any real character. This is called ==EOF== , for end of file. and C must be declared to be a type big enough to hold any value that `getchar` returns and we can't use `char` since c must big enough to hold `EOF` and any possible `char`.
+
+and the above file written more concisely:
+
+```
+#include <stdio.h>
+
+int main()
+{
+    int c;
+
+    while ((c = getchar()) != EOF)
+        putchar(c);
+}
+```
+
+> Note: The parentheses around the assignment, within the condition are necessary. The order of operations of != is higher than that of =. This means the absence of parentheses would test `!=` before the assignment of the `getchar()`.
+
+[Exercise 1-6 - Verify that the expression `getchar() != EOF` is 0 or 1](programs/chapter-1/filecopying/filecopying_1-6.c)
+[Exercise 1-7 - Write a program to print the value of `EOF`](programs/chapter-1/filecopying/filecopying_1-7.c)
