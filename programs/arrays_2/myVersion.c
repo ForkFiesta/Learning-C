@@ -165,7 +165,7 @@ void prepend(Vector *vector, int item){
 void delete(Vector *vector, int index)
 {
     if (index < 0|| index >= vector->size){
-        fprtintf(stderr, "Error: cannot delete an item that is not within bounds of vector size\n");
+        fprintf(stderr, "Error: cannot delete an item that is not within bounds of vector size\n");
         free(vector);
         exit(1);
     }
@@ -219,7 +219,64 @@ int find(Vector *vector, int item){
 
 
 
-int main()
-{
+int main() {
+    // Create a new vector with initial capacity 16
+    Vector *vector = create_vector(16);
+
+    // Test: is_empty should be true initially
+    printf("Is empty: %s\n", is_empty(vector) ? "true" : "false");
+
+    // Test: push items and check size
+    push(vector, 10);
+    push(vector, 20);
+    push(vector, 30);
+    printf("After pushing 3 items, size: %d\n", size(vector));
+
+    // Test: at function
+    printf("Item at index 1: %d\n", at(vector, 1)); // Should print 20
+
+    // Test: pop function
+    int popped = pop(vector);
+    printf("Popped item: %d\n", popped); // Should print 30
+    printf("Size after pop: %d\n", size(vector)); // Should be 2
+
+    // Test: insert function
+    insert(vector, 15, 1);
+    printf("Item at index 1 after inserting 15: %d\n", at(vector, 1)); // Should print 15
+
+    // Test: prepend function
+    prepend(vector, 5);
+    printf("Item at index 0 after prepending 5: %d\n", at(vector, 0)); // Should print 5
+    printf("Size after prepend: %d\n", size(vector)); // Should be 4
+
+    // Test: delete function
+    delete(vector, 1); // Should delete the item 10
+    printf("Size after deleting item at index 1: %d\n", size(vector)); // Should be 3
+    printf("Item now at index 1: %d\n", at(vector, 1)); // Should print 15
+
+    // Test: remove_item function
+    push(vector, 15); // Push another 15 to test remove_item
+    int removed_count = remove_item(vector, 15);
+    printf("Number of items removed: %d\n", removed_count); // Should print 2
+    printf("Size after removing all 15s: %d\n", size(vector)); // Should be 2
+
+    // Test: find function
+    push(vector, 40);
+    int index_of_40 = find(vector, 40);
+    printf("Index of 40: %d\n", index_of_40); // Should print 2
+
+    // Test: capacity and resizing
+    printf("Initial capacity: %d\n", capacity(vector));
+    for (int i = 0; i < 20; i++) {
+        push(vector, i);
+    }
+    printf("Size after pushing 20 more items: %d\n", size(vector));
+    printf("Capacity after pushing 20 more items: %d\n", capacity(vector));
+
+    // Free vector
+    free(vector->data);
+    free(vector);
+
     return 0;
 }
+
