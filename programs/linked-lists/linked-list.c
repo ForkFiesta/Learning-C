@@ -71,6 +71,11 @@ int pop_front(LinkedList *list){
         return -1;
     }
     Node *old_head = list->head;
+    int value = old_head->value;
+    list->head = old_head->next;
+    free(old_head);
+    list->size--;
+    return value;
     
 }
 
