@@ -33,16 +33,16 @@ LinkedList* create_list(){
 
     return list;
 }
-
+// returns the number of data elements in the list
 int size(LinkedList *list){
     return list->size;
 }
-
+// returns true if empty
 bool is_empty(LinkedList *list){
     return list->size == 0;
 }
 
-
+// adds and item to the front of the list
 void push_front(LinkedList *list, int item){
     Node *new_node = malloc(sizeof(Node));
     new_node->value = item;
@@ -50,7 +50,7 @@ void push_front(LinkedList *list, int item){
     list->head = new_node;
     list->size++;
 }
-
+//returns the value of the nth item
 int value_at(LinkedList *list, int index){
     if (index < 0 || index >= list->size){
         fprintf(stderr, "Index out of bounds.\n");
@@ -65,6 +65,7 @@ int value_at(LinkedList *list, int index){
     return current->value;
 }
 
+// removes the front item and returns it value
 int pop_front(LinkedList *list){
     if(is_empty(list)){
         printf("List is empty.\n");
@@ -76,8 +77,9 @@ int pop_front(LinkedList *list){
     free(old_head);
     list->size--;
     return value;
-    
+
 }
+
 
 
 

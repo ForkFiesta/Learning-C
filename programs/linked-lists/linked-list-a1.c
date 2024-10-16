@@ -246,17 +246,72 @@ void remove_value(LinkedList *list, int value){
 int main() {
     LinkedList* list = create_list();
 
+    printf("Testing empty list:\n");
+    printf("Is empty? %s\n", empty(list) ? "true" : "false");
+    printf("Size: %d\n", size(list));
+    printf("Front: %d\n", front(list));
+    printf("Back: %d\n", back(list));
+    printf("Value at 0: %d\n", value_at(list, 0));
+    printf("Pop front: %d\n", pop_front(list));
+    printf("Pop back: %d\n", pop_back(list));
+
+    printf("\nTesting push_front and push_back:\n");
     push_front(list, 10);
     push_back(list, 20);
-    insert(list, 1, 15);
+    push_front(list, 5);
+    push_back(list, 25);
 
-    printf("Front element: %d\n", front(list));
-    printf("Back element: %d\n", back(list));
-    printf("Value at index 1: %d\n", value_at(list, 1));
-    printf("List size: %d\n", size(list));
+    printf("Size: %d\n", size(list)); // Expecting 4
+    printf("Front: %d\n", front(list)); // Expecting 5
+    printf("Back: %d\n", back(list)); // Expecting 25
+    printf("Value at index 2: %d\n", value_at(list, 2)); // Expecting 10
 
+    printf("\nTesting pop_front and pop_back:\n");
+    printf("Pop front: %d\n", pop_front(list)); // Expecting 5
+    printf("Pop back: %d\n", pop_back(list)); // Expecting 25
+    printf("Size after pops: %d\n", size(list)); // Expecting 2
+    printf("Front: %d\n", front(list)); // Expecting 10
+    printf("Back: %d\n", back(list)); // Expecting 20
+
+    printf("\nTesting insert and erase:\n");
+    insert(list, 1, 15); // Inserting 15 at index 1
+    printf("Value at index 1 (after insert): %d\n", value_at(list, 1)); // Expecting 15
+    printf("Size after insert: %d\n", size(list)); // Expecting 3
+
+    erase(list, 1); // Removing element at index 1
+    printf("Value at index 1 (after erase): %d\n", value_at(list, 1)); // Expecting 20
+    printf("Size after erase: %d\n", size(list)); // Expecting 2
+
+    printf("\nTesting value_n_from_end:\n");
+    push_back(list, 30);
+    printf("Value 1 from end: %d\n", value_n_from_end(list, 1)); // Expecting 20
+    printf("Value 2 from end: %d\n", value_n_from_end(list, 2)); // Expecting 10
+
+    printf("\nTesting reverse:\n");
     reverse(list);
-    printf("Front element after reversing: %d\n", front(list));
+    printf("Front after reverse: %d\n", front(list)); // Expecting 30
+    printf("Back after reverse: %d\n", back(list)); // Expecting 10
+    printf("Value at index 1 after reverse: %d\n", value_at(list, 1)); // Expecting 20
 
+    printf("\nTesting remove_value:\n");
+    push_front(list, 30); // Add duplicate value at front
+    printf("Size before removing 30: %d\n", size(list)); // Expecting 4
+    remove_value(list, 30); // Should remove the first 30
+    printf("Size after removing 30: %d\n", size(list)); // Expecting 3
+    printf("Front after removing 30: %d\n", front(list)); // Expecting 20
+
+    printf("\nFinal state of the list:\n");
+    printf("Size: %d\n", size(list));
+    for (int i = 0; i < size(list); i++) {
+        printf("Value at index %d: %d\n", i, value_at(list, i));
+    }
+
+    // Free the list
+    while (!empty(list)) {
+        pop_front(list);
+    }
+    free(list);
+
+    printf("\nAll tests completed.\n");
     return 0;
 }
