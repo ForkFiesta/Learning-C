@@ -33,6 +33,7 @@ int remove_item(Queue *queue){
     if (queue->head == NULL){
         queue->tail = NULL;
     }
+    free(old_node);
     return data;
 }
 
