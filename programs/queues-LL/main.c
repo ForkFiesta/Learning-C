@@ -24,5 +24,7 @@ int main(){
         printf("Item removed: %d\n", remove_item(newQueue));
     }
 
+    free(newQueue);
+
     return 0;
 }
