@@ -106,3 +106,47 @@ Worst Case: $\theta (n)$
        - lots of situations where this is bad, but in practice it's pretty good if m is prime and it's not really close to $m^2$ or $m^10$.
   2. Multiplication method:
      - $h(k) = [(a*k)\: mod\,2^w]\,>>\,(w-r)$
+  3. Universal Hashing:
+  - $h(k)\,=\,[(ak+b)\,mod\,p]\, mod\,m$
+    - where a is random
+    - k is the key
+    - b is $\xi\{0,\: ..., p-1\}$
+    - p is is some prime number $\gt\, |\mu|$
+      - for worst case key $k_1\neq k_2 : P_r\{h(k_1)=h(k_2)\}\:=\:1/m$
+
+## Notes from [Lecture 9: Table Doubling, Karp-Rabin](https://www.youtube.com/watch?v=BRO7mVIFt08&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=9)
+
+### The remaining question is how to choose M?
+
+- We want $m=\theta(n)$ and $\alpha=\theta(1)$
+- Idea start small: m = 8
+  - grow / shrink as necessary
+
+If n>m : Grow table
+
+- Make table of size $m'$
+  - $m' = 2m$
+    - cost of N inserts
+    - = $\theta(n)$
+    - but there are only a few of them that are really expensive log(n) of them. see Amortization
+- build new hash $h'$
+- rehash:
+  - for each item in T:
+    - T'.insert(item)
+
+#### Amortization
+
+- operation takes T(n) amortized if k operations take <= k\*T(n) time
+- spread out of the high costs over N
+- think of meaning ~"(T(n) on average)", where the average is taken over all operations
+
+### Table doubling
+
+- K inserts take $\theta(k) time
+  - => $\theta(1) amortized/insert
+- K inserts / deletes take O(K) time
+
+### Deletion
+
+1. If m = n/4 then shrink n/2
+   - amortized time -> $\theta(n)$
